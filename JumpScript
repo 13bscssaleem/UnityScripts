@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    // Start is called before the first frame update
+    private Rigidbody PlayerRb;
+    public float jumpForce;
+    public float gravityModifier;
+    public bool isOnGround = true;
+    void Start()
+    {
+        PlayerRb = GetComponent<Rigidbody>();
+        Physics.gravity *= gravityModifier;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space) && isOnGround){
+       PlayerRb.Addforce(Vector3.up * jumpForce,ForceMode.Impulse);
+       isOnGround = false;
+        }
+        //transform.position = player.transform.position + offset;
+    }
+    private void OnCollisionEnter(Collision collision){
+
+        isOnGround = true;
+    }
+
+}
